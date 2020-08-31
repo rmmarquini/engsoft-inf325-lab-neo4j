@@ -1,0 +1,86 @@
+#!/bin/bash
+
+###############################################################
+#          jupyter/jupyterlab extensions/kernels              #
+###############################################################
+
+echo "IPywidgets Jupyterlab"
+jupyter labextension install @jupyter-widgets/jupyterlab-manager
+
+
+# Table of contents Jupyter Lab Extension
+echo "Table of contents Jupyter Lab extension install"
+jupyter labextension install @jupyterlab/toc --no-build 
+
+
+# Building everything up
+echo "Building everything up (jupyter lab build)"
+jupyter lab build 
+
+###############################################################
+#             moving to a local installation folder           #
+###############################################################
+
+mkdir ~/resources/local
+cd    ~/resources/local
+
+
+###############################################################
+#             neo4j installation commands                   #
+###############################################################
+
+export NEO4J_VERSION=3.5.8
+echo "export NEO4J_VERSION=${NEO4J_VERSION}" >> ~/.bashrc
+echo "export NEO4J_VERSION=${NEO4J_VERSION}" >> ~/.profile
+
+export NEO4J_HOME=$(pwd)/neo4j-community-${NEO4J_VERSION}
+echo "export NEO4J_HOME=${NEO4J_HOME}"       >> ~/.bashrc
+echo "export NEO4J_HOME=${NEO4J_HOME}"       >> ~/.profile
+
+
+wget https://neo4j.com/artifact.php?name=neo4j-community-${NEO4J_VERSION}-unix.tar.gz -q
+tar -xvf artifact.php?name=neo4j-community-${NEO4J_VERSION}-unix.tar.gz >/dev/null
+rm artifact.php?name=neo4j-community-${NEO4J_VERSION}-unix.tar.gz
+
+# wget https://neo4j.com/artifact.php?name=neo4j-community-${NEO4J_VERSION}-unix.tar.gz -q          && \
+# mv   artifact.php?name=neo4j-community-${NEO4J_VERSION}-unix.tar.gz neo4j-${NEO4J_VERSION}.tar.gz && \
+# tar  -xvf neo4j-${NEO4J_VERSION}.tar.gz >/dev/null                                                && \
+# rm   neo4j-${NEO4J_VERSION}.tar.gz                                                                && \
+# mv   neo4j-community-${NEO4J_VERSION} neo4j-${NEO4J_VERSION}
+
+# adding bin and sbin to $path
+echo "export PATH=\$PATH:\$NEO4J_HOME/bin"  >> ~/.bashrc
+echo "export PATH=\$PATH:\$NEO4J_HOME/bin"  >> ~/.profile
+
+
+
+
+###############################################################
+#             vscode server installation                      #
+###############################################################
+
+cd    ~/resources/local
+
+export CODE_SERVER_VERSION=3.3.0
+echo "export CODE_SERVER_VERSION=${CODE_SERVER_VERSION}" >> ~/.bashrc
+echo "export CODE_SERVER_VERSION=${CODE_SERVER_VERSION}" >> ~/.profile
+
+export CODE_SERVER_HOME=$(pwd)/code-server-${CODE_SERVER_VERSION}
+echo "export CODE_SERVER_HOME=${CODE_SERVER_HOME}"       >> ~/.bashrc
+echo "export CODE_SERVER_HOME=${CODE_SERVER_HOME}"       >> ~/.profile
+
+# Download and install VSCode server
+# wget -q -O code-server.tar.gz https://github.com/cdr/code-server/releases/download/$CODE_SERVER_VERSION/code-server-$CODE_SERVER_VERSION-linux-x86_64.tar.gz                            
+wget -q -O code-server.tar.gz https://github.com/cdr/code-server/releases/download/v$CODE_SERVER_VERSION/code-server-$CODE_SERVER_VERSION-linux-amd64.tar.gz                            
+tar xzf code-server.tar.gz
+# mv code-server-${CODE_SERVER_VERSION}-linux-x86_64 code-server-$CODE_SERVER_VERSION
+mv code-server-$CODE_SERVER_VERSION-linux-amd64 code-server-$CODE_SERVER_VERSION
+
+rm -rf code-server.tar.gz
+
+# adding bin/ to $path
+echo "export PATH=\$PATH:\$CODE_SERVER_HOME/bin"   >> ~/.bashrc
+echo "export PATH=\$PATH:\$CODE_SERVER_HOME/bin"   >> ~/.profile
+
+source ~/.bashrc
+

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cp ~/resources/configs/neo4j/${NEO4J_VERSION}/neo4j.conf    ${NEO4J_HOME}/conf/
+nohup  neo4j start &> ~/logs/neo4j-$NEO4J_VERSION.log &
+
