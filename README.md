@@ -19,6 +19,9 @@ Este repositório é destinado aos laboratórios com **neo4j** para a disciplina
 ## :computer: Laboratórios
 * [Labs](https://github.com/rmmarquini/engsoft-inf325-lab-neo4j/tree/master/labs)
 
+## :rocket: Launch Notebooks
+* [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/rmmarquini/engsoft-inf325-lab-neo4j/master)
+
 ## :memo: Licença
 MIT license.
 
